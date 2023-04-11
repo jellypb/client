@@ -1,0 +1,17 @@
+version: '2.4'
+
+services:
+  pbs-client:
+    container_name: pbs-client
+    image: "ghcr.io/jellypb/client:2.4.1-1"
+    # runtime configuration
+    env_file:
+      - "./.env"
+    volumes:
+      # everything mounted under /opt/jellypb/backup inside the container will be sent
+      # example: backup docker volumes
+      # - "/var/lib/docker/volumes:/opt/jellypb/backup/docker-volumes:ro"
+      # mount in a crontab - default runs once every 24 hours
+      - "./conf/crontab:/etc/crontab:ro"
+      # logs directory
+      - "./logs:/opt/jellypb/logs:rw"
